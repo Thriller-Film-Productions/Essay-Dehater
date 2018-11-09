@@ -35,6 +35,7 @@ function search() {
 }
 
 function wordAgainstPhrase(word1, word2, phrase) {
+  console.log(bad[phrase].split(" ").length);
   if (essay[word1][word2] == bad[phrase]) {
     return true;
   } else if (bad[phrase].split(" ") > 1) {
@@ -44,6 +45,7 @@ function wordAgainstPhrase(word1, word2, phrase) {
         pts++;
       }
     }
+    console.log(pts);
     if (pts == bad[phrase].split(" ").length) {
       return true;
     } else {
