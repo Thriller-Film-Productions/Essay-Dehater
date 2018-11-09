@@ -1,6 +1,8 @@
 let text;
 let words;
 let container;
+let bad;
+let essay;
 
 function setup() {
   noCanvas();
@@ -11,18 +13,18 @@ function setup() {
 
 function search() {
   container.elt.innerHTML = "";
-  let bad = words.value().split("\n");
+  bad = words.value().split("\n");
   for (let i = 0; i < bad.length; i++) {
     bad[i] = bad[i].toLowerCase();
   }
-  let essay = text.value().split("\n")
+  essay = text.value().split("\n")
   for (let i = 0; i < essay.length; i++) {
     essay[i] = essay[i].split(" ");
   }
   createElement("br").parent(container);
   for (let i = 0; i < essay.length; i++) {
     for (let j = 0; j < essay[i].length; j++) {
-      if (words.value().split("\n").includes(essay[i][j].toLowerCase())) {
+      if (checkall(i, j)[0]) {
         createSpan(essay[i][j] + " ").style("color", "rgb(235, 51, 51)").style("font-family", "sans-serif").parent(container);
       } else {
         createSpan(essay[i][j] + " ").style("color", "rgb(51, 51, 51)").style("font-family", "sans-serif").parent(container);
@@ -30,4 +32,33 @@ function search() {
     }
     createElement("br").parent(container);
   }
+}
+
+function wordAgainstPhrase(word1, word2, phrase) {
+  if (essay[word1][word2] == bad[phrase]) {
+    return true;
+  } else if (bad[phrase].split(" ") > 1) {
+    let pts = 0;
+    for (let i = 0; i < bad[phrase].split(" "); i++) {
+      if (essay[word1][word2+i] = bad[phrase].split(" ")[i]) {
+        pts++;
+      }
+    }
+    if (pts == bad[phrase].split(" ").length) {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
+
+function checkall(word1, word2) {
+  for (let i = 0; i < bad.length; i++) {
+    if (wordAgainstPhrase(word1, word2, i)) {
+      return [true, bad[i].split(" ").length];
+    }
+  }
+  return [false];
 }
