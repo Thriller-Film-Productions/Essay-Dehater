@@ -41,16 +41,12 @@ function wordAgainstPhrase(word1, word2, phrase) {
   } else if (bad[phrase].split(" ") > 1) {
     let pts = 0;
     for (let i = 0; i < bad[phrase].split(" ").length; i++) {
-      if (essay[word1][word2+i] == bad[phrase].split(" ")[i]) {
-        pts++;
+      if (essay[word1][word2+i] !== bad[phrase].split(" ")[i]) {
+        return false;
       }
     }
-    console.log(pts);
-    if (pts == bad[phrase].split(" ").length) {
-      return true;
-    } else {
-      return false;
-    }
+    
+    return true;
   } else {
     return false;
   }
