@@ -36,11 +36,11 @@ function search() {
 
 function wordAgainstPhrase(word1, word2, phrase) {
   console.log(bad[phrase].split(" ").length);
-  if (essay[word1][word2] == bad[phrase]) {
+  if (essay[word1][word2].toLowerCase() == bad[phrase].toLowerCase()) {
     return true;
   } else if (bad[phrase].split(" ") > 1) {
     let pts = 0;
-    for (let i = 0; i < bad[phrase].split(" "); i++) {
+    for (let i = 0; i < bad[phrase].split(" ").length; i++) {
       if (essay[word1][word2+i] = bad[phrase].split(" ")[i]) {
         pts++;
       }
